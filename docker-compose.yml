@@ -1,0 +1,20 @@
+version: "3"
+services:
+  php:
+    build:
+      context: ./php
+      dockerfile: Dockerfile
+    volumes:
+      - ./www:/var/www
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/config:/etc/nginx/conf.d
+      - ./www:/var/www
+    links:
+      - php
